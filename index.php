@@ -24,6 +24,7 @@
           <button type="submit" name="submit">signup</button>
         </form>
       </div>
+      <div class="divisor"></div>
       <div class="box login">
         <form action="includes/login.inc.php" method="post">
           <input type="text" name="uid" placeholder="User name">
