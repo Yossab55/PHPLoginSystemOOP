@@ -19,7 +19,7 @@
         <form action="includes/signup.inc.php" method="post">
           <input type="text" name="uid" placeholder="User name">
           <input type="password" name="pwd" placeholder="Password">
-          <input type="password" name="pwd" placeholder="Repeat Password">
+          <input type="password" name="pwdRepeat" placeholder="Repeat Password">
           <input type="email" name="email" placeholder="E-mail">
           <button type="submit" name="submit">signup</button>
         </form>
