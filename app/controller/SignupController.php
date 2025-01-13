@@ -1,0 +1,58 @@
+<?php
+
+namespace app\controller;
+
+class SignupController {
+    private $uid;
+    private $pwd;
+    private $pwdRepeat;
+    private $email;
+    
+    public function __construct($uid, $pwd, $pwdRepeat, $email)
+    {
+        $this->uid = $uid;
+        $this->pwd = $pwd;
+        $this->pwdRepeat = $pwdRepeat;
+        $this->email = $email;
+    }
+
+  private function emptyInput() 
+  {
+    $result = true;
+    $inputs = $this->getIterator();
+    foreach($inputs as $input) {
+      if(empty($input)) {
+        $result = false;
+      }
+    }
+    return $result;
+  }
+  private function invalidUid() 
+  {
+    $result = true;
+    if(!preg_match("/^[a-zA-Z0-9]+$", $this->uid)) {
+      $result = false;
+    }
+    return $result;
+  }
+  private function invalidEmail() 
+  {
+    $result = true;
+    if(!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+      $result = false;
+    }
+    return $result;
+  }
+  private function passwordMatches() 
+  {
+    $result = true;
+    if(!$this->pwd == $this->pwdRepeat) {
+      $result = false;
+    }
+    return $result;
+  }
+  public function getIterator(): \Traversable
+  {
+    return new \ArrayIterator([$this->uid, $this->pwd, $this->pwdRepeat, $this->email]);
+  }
+}

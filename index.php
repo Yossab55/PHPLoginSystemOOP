@@ -16,7 +16,7 @@
   <div class="container">
     <div class="section">
       <div class="box signup">
-        <form action="includes/signup.inc.php" method="post">
+        <form action="app/includes/signupInc.php" method="post">
           <input type="text" name="uid" placeholder="User name">
           <input type="password" name="pwd" placeholder="Password">
           <input type="password" name="pwdRepeat" placeholder="Repeat Password">
@@ -26,7 +26,7 @@
       </div>
       <div class="divisor"></div>
       <div class="box login">
-        <form action="includes/login.inc.php" method="post">
+        <form action="app/includes/loginInc.php" method="post">
           <input type="text" name="uid" placeholder="User name">
           <input type="password" name="pwd" placeholder="Password">
           <button type="submit" name="submit">login</button>
