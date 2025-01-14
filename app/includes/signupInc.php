@@ -17,5 +17,6 @@ if(isset($_POST["submit"])) {
         $password_repeat, 
         $email
     );
-    
+    $signup->signupUser();
+    header("Location: ../../index.php?error=none");
 }

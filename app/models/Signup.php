@@ -15,7 +15,6 @@ class Signup extends DataBaseHandler
       header("Location: ../../index.php?error=statementFailed");
       exit();
     }
-    
     // check if there is row or not 
     $result_check = true;;
     if($statement->rowCount() > 0) {
@@ -23,8 +22,21 @@ class Signup extends DataBaseHandler
     }
     return $result_check;
   }
-  protected function setUser() 
+
+  protected function setUser($uid, $pwd, $email) 
   {
-    
+    $sql = 
+      'INSERT INTO users (users_uid, users_pwd, users_email)
+      VALUES (?, ?, ?);';
+    $statement = $this->connect()->prepare($sql);
+      $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
+
+    if(! $statement->execute(array($uid, $hashedPwd, $email))) {
+      $statement = null;
+      header("Location: ../../index.php?error=statementFailed");
+      exit();
+    }
+    // for security 
+    $statement = null;
   }
 }

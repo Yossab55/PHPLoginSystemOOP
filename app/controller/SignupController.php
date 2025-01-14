@@ -18,7 +18,7 @@ class SignupController extends Signup
       $this->pwdRepeat = $pwdRepeat;
       $this->email = $email;
   }
-  private function signupUser() {
+  public function signupUser() {
     if($this->emptyInput() == false) 
       $this->exitAndGoToIndexWith("emptyInputs");
 
@@ -34,7 +34,7 @@ class SignupController extends Signup
     if($this->uidTakenCheck() == false) 
       $this->exitAndGoToIndexWith("userIdOrEmailTaken");
 
-    $this->setUser();
+    $this->setUser($this->uid, $this->pwd, $this->email);
   }
   private function exitAndGoToIndexWith($error) {
     header("Location: ../../index.php?error=$error");
@@ -54,7 +54,7 @@ class SignupController extends Signup
   private function invalidUid() 
   {
     $result = true;
-    if(!preg_match("/^[a-zA-Z0-9]+$", $this->uid)) {
+    if(! preg_match("/^[a-zA-Z0-9]*$", $this->uid)) {
       $result = false;
     }
     return $result;
