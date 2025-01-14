@@ -4,7 +4,7 @@ namespace app\controller;
 
 class DataBaseHandler
 {
-  private function connect() 
+  protected function connect() 
   {
     try {
       $dbname = "PHPLoginSystemOOP";

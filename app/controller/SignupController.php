@@ -2,20 +2,44 @@
 
 namespace app\controller;
 
-class SignupController {
-    private $uid;
-    private $pwd;
-    private $pwdRepeat;
-    private $email;
-    
-    public function __construct($uid, $pwd, $pwdRepeat, $email)
-    {
-        $this->uid = $uid;
-        $this->pwd = $pwd;
-        $this->pwdRepeat = $pwdRepeat;
-        $this->email = $email;
-    }
+use app\models\Signup;
 
+class SignupController extends Signup
+{
+  private $uid;
+  private $pwd;
+  private $pwdRepeat;
+  private $email;
+  
+  public function __construct($uid, $pwd, $pwdRepeat, $email)
+  {
+      $this->uid = $uid;
+      $this->pwd = $pwd;
+      $this->pwdRepeat = $pwdRepeat;
+      $this->email = $email;
+  }
+  private function signupUser() {
+    if($this->emptyInput() == false) 
+      $this->exitAndGoToIndexWith("emptyInputs");
+
+    if($this->invalidUid() == false) 
+      $this->exitAndGoToIndexWith("username");
+
+    if($this->invalidEmail() == false) 
+      $this->exitAndGoToIndexWith("email");
+
+    if($this->passwordMatches() == false) 
+      $this->exitAndGoToIndexWith("passwordMatches");
+
+    if($this->uidTakenCheck() == false) 
+      $this->exitAndGoToIndexWith("userIdOrEmailTaken");
+
+    $this->setUser();
+  }
+  private function exitAndGoToIndexWith($error) {
+    header("Location: ../../index.php?error=$error");
+    exit();
+  }
   private function emptyInput() 
   {
     $result = true;
@@ -49,6 +73,11 @@ class SignupController {
     if(!$this->pwd == $this->pwdRepeat) {
       $result = false;
     }
+    return $result;
+  }
+  private function uidTakenCheck() {
+    $result = true;
+    if(! $this->check_uid($this->uid, $this->email)) $result = false;
     return $result;
   }
   public function getIterator(): \Traversable
