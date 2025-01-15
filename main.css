@@ -1,12 +1,13 @@
 
-button {
+button,
+a.logout {
   border: 1px solid #eee;
   border-radius: 20px;
   padding: 8px 10px;
   background-color: transparent;
   cursor: pointer;
 }
-button[name='signout'] {
+a.logout {
   background-color: lightcoral;
   color: white;
 }
