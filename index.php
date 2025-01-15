@@ -7,7 +7,7 @@
   <title>login System by OOP PHP</title>
 </head>
 <body>
-  <button type="submit" name="signout">signout</button>
+  <a href="app/includes/logoutInc.php">signout</a>
   <div class="container">
     <div class="welcome-section">
       <h1>welcome, name</h1>
