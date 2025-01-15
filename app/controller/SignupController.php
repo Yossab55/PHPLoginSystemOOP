@@ -1,6 +1,7 @@
 <?php
 
 namespace app\controller;
+require_once "../../vendor/autoload.php";
 
 use app\models\Signup;
 
@@ -17,22 +18,23 @@ class SignupController extends Signup
       $this->pwd = $pwd;
       $this->pwdRepeat = $pwdRepeat;
       $this->email = $email;
-  }
-  public function signupUser() {
-    if($this->emptyInput() == false) 
-      $this->exitAndGoToIndexWith("emptyInputs");
-
+    }
+    public function signupUser() {
     if($this->invalidUid() == false) 
       $this->exitAndGoToIndexWith("username");
+
+    if($this->emptyInput() == false) 
+      $this->exitAndGoToIndexWith("emptyInputs");
 
     if($this->invalidEmail() == false) 
       $this->exitAndGoToIndexWith("email");
 
     if($this->passwordMatches() == false) 
       $this->exitAndGoToIndexWith("passwordMatches");
+  //! here is an error connection to db is taking to long!
+  if($this->uidTakenCheck() == false) 
+    $this->exitAndGoToIndexWith("userIdOrEmailTaken");
 
-    if($this->uidTakenCheck() == false) 
-      $this->exitAndGoToIndexWith("userIdOrEmailTaken");
 
     $this->setUser($this->uid, $this->pwd, $this->email);
   }
@@ -54,7 +56,7 @@ class SignupController extends Signup
   private function invalidUid() 
   {
     $result = true;
-    if(! preg_match("/^[a-zA-Z0-9]*$", $this->uid)) {
+    if(! preg_match("/^[a-zA-Z0-9]*$/", $this->uid)) {
       $result = false;
     }
     return $result;

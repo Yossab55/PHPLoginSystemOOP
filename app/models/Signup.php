@@ -1,13 +1,15 @@
 <?php 
 namespace app\models;
+
+require_once "../../vendor/autoload.php";
+
 use app\controller\DataBaseHandler;
 class Signup extends DataBaseHandler
 {
   protected function check_uid($uid, $email)
   {
     $sql = 
-      'SELECT users_uid FROM users 
-      WHERE users_uid = ? OR users_email = ?;';
+      'SELECT users_uid FROM users WHERE users_uid = ? or users_email = ?;';
     $statement = $this->connect()->prepare($sql);
     // check if statement works or not 
     if(! $statement->execute(array($uid, $email))) {
